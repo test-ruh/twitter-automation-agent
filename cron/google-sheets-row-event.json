@@ -1,0 +1,16 @@
+{
+  "name": "google-sheets-row-event",
+  "enabled": false,
+  "schedule": {
+    "kind": "cron",
+    "expr": "",
+    "tz": "UTC"
+  },
+  "sessionTarget": "main",
+  "wakeMode": "event",
+  "payload": {
+    "kind": "agentTurn",
+    "message": "Google Sheets row containing queued post content and status.",
+    "timeoutSeconds": 600
+  }
+}

@@ -1,0 +1,28 @@
+name: main
+args:
+  run_id:
+    default: $(uuidgen)
+env:
+  RUN_ID: ${run_id}
+  PG_CONNECTION_STRING: ${PG_CONNECTION_STRING}
+  ORG_ID: ${ORG_ID}
+  AGENT_ID: ${AGENT_ID}
+steps:
+  - id: provision-schema
+    run: python3 scripts/data_writer.py provision
+    timeout_ms: 30000
+  - id: read-content-queue
+    run: bash skills/read-content-queue/scripts/run.sh
+    stdin: ${{ trigger.payload }}
+    timeout_ms: 600000
+  - id: publish-twitter-post
+    run: bash skills/publish-twitter-post/scripts/run.sh
+    stdin: "${{ steps.read-content-queue.output }}"
+    timeout_ms: 600000
+  - id: update-content-queue
+    run: bash skills/update-content-queue/scripts/run.sh
+    stdin: "${{ steps.publish-twitter-post.output }}"
+    timeout_ms: 600000
+  - id: persist-result
+    run: "python3 - <<'PY'\nimport json, os, subprocess\nfrom pathlib import Path\npath = Path(f'/tmp/update-content-queue_{os.environ["RUN_ID"]}.json')\ndata = json.loads(path.read_text())\nsource = data[0] if isinstance(data, list) and data else data\nif not isinstance(source, dict):\n    raise TypeError('update-content-queue output must be a JSON object or non-empty array')\nmetadata = {\n    'source': source.get('source'),\n    'sheet_update_status': source.get('sheet_update_status'),\n    'google_sheets_response': source.get('google_sheets_response'),\n}\nrecord = {\n    'sheet_row_id': source.get('sheet_row_id'),\n    'tweet_id': source.get('tweet_id'),\n    'tweet_url': source.get('tweet_url'),\n    'published_at': source.get('published_at'),\n    'status': source.get('status') or source.get('sheet_update_status') or 'published',\n    'metadata': {k: v for k, v in metadata.items() if v is not None},\n}\nrecords = [{k: v for k, v in record.items() if v is not None}]\nsubprocess.run(["python3", "scripts/data_writer.py", "write", "--table", "result_published_tweets", "--conflict", "sheet_row_id", "--records", json.dumps(records)], check=True)\nPY"
+    timeout_ms: 600000

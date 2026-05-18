@@ -1,0 +1,45 @@
+version: "1.0"
+agent_id: "twitter-automation-agent"
+
+tables:
+  result_published_tweets:
+    description: "Dashboard-facing records for Twitter/X publication attempts and results."
+    writable: true
+    write_mode: upsert
+    columns:
+      id:
+        type: uuid
+        primary_key: true
+        auto_generate: true
+        description: Result record identifier.
+      run_id:
+        type: string
+        description: OpenClaw workflow run identifier.
+      computed_at:
+        type: datetime
+        description: Time this result record was written.
+      sheet_row_id:
+        type: string
+        required: true
+        description: Identifier for the Google Sheets row that was published.
+      tweet_id:
+        type: string
+        description: Published Twitter/X post ID.
+      tweet_url:
+        type: string
+        description: Published Twitter/X post URL.
+      published_at:
+        type: datetime
+        description: Time the post was published.
+      status:
+        type: string
+        required: true
+        description: Publication result status.
+      metadata:
+        type: jsonb
+        description: Additional publication metadata from Twitter/X or Google Sheets.
+    conflict_columns:
+      - sheet_row_id
+    indexes:
+      - columns: [sheet_row_id]
+        name: idx_result_published_tweets_sheet_row_id

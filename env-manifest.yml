@@ -1,0 +1,173 @@
+infrastructure:
+  - key: PG_CONNECTION_STRING
+    label: PostgreSQL connection string
+    required: false
+    secret: true
+    platform_managed: true
+    description: "OpenClaw-managed PostgreSQL connection used for result writes."
+  - key: ORG_ID
+    label: Organization ID
+    required: false
+    secret: false
+    platform_managed: true
+    description: "OpenClaw-managed organization identifier."
+  - key: AGENT_ID
+    label: Agent ID
+    required: false
+    secret: false
+    platform_managed: true
+    description: "OpenClaw-managed agent identifier."
+  - key: RUN_ID
+    label: Run ID
+    required: false
+    secret: false
+    platform_managed: true
+    description: "OpenClaw-managed workflow run identifier."
+connector:
+  - key: GOOGLE_SHEETS_CLIENT_EMAIL
+    label: Google Sheets client email
+    required: true
+    secret: true
+    platform_managed: false
+    description: Google service account client email with access to the content queue spreadsheet.
+    how_to_get_steps:
+      - "Open https://console.cloud.google.com/ in your browser"
+      - Create or choose a Google Cloud project
+      - "Click 'APIs & Services', then enable the Google Sheets API"
+      - "Click 'IAM & Admin', then 'Service Accounts'"
+      - Create or open a service account and create a JSON key
+      - Copy the client_email value and paste it into the field above.
+    site_url: "https://workspace.google.com/products/sheets/"
+    provider_doc_url: "https://developers.google.com/sheets/api/guides/authorizing"
+  - key: GOOGLE_SHEETS_PRIVATE_KEY
+    label: Google Sheets private key
+    required: true
+    secret: true
+    platform_managed: false
+    description: Google service account private key used with the client email for Google Sheets API access.
+    how_to_get_steps:
+      - "Open https://console.cloud.google.com/ in your browser"
+      - Open the Google Cloud project used for this agent
+      - "Click 'IAM & Admin', then 'Service Accounts'"
+      - "Open the service account and click 'Keys'"
+      - Create or download a JSON key
+      - Copy the private_key value and paste it into the field above.
+    site_url: "https://workspace.google.com/products/sheets/"
+    provider_doc_url: "https://developers.google.com/sheets/api/guides/authorizing"
+  - key: TWITTER_API_KEY
+    label: Twitter/X API key
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X API key for the app that publishes queued posts.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Create or open an app with posting permissions
+      - "Open the app's 'Keys and tokens' page"
+      - Copy the API Key and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret"
+  - key: TWITTER_API_SECRET
+    label: Twitter/X API secret
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X API secret for the app that publishes queued posts.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Open the app used for this agent
+      - "Open the app's 'Keys and tokens' page"
+      - Copy the API Key Secret and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret"
+  - key: TWITTER_ACCESS_TOKEN
+    label: Twitter/X access token
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X user access token for the account that publishes queued posts.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Open the app used for this agent
+      - "Open the app's 'Keys and tokens' page"
+      - Generate user access tokens with posting permissions
+      - Copy the Access Token and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens"
+  - key: TWITTER_ACCESS_TOKEN_SECRET
+    label: Twitter/X access token secret
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X user access token secret for the account that publishes queued posts.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Open the app used for this agent
+      - "Open the app's 'Keys and tokens' page"
+      - Generate user access tokens with posting permissions
+      - Copy the Access Token Secret and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens"
+channel:
+  - key: TWITTER_API_KEY
+    label: Twitter/X publishing API key
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X publishing channel API key.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Create or open an app with posting permissions
+      - "Open the app's 'Keys and tokens' page"
+      - Copy the API Key and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret"
+  - key: TWITTER_API_SECRET
+    label: Twitter/X publishing API secret
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X publishing channel API secret.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Open the app used for this agent
+      - "Open the app's 'Keys and tokens' page"
+      - Copy the API Key Secret and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/api-key-and-secret"
+  - key: TWITTER_ACCESS_TOKEN
+    label: Twitter/X publishing access token
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X publishing channel access token for the posting account.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Open the app used for this agent
+      - "Open the app's 'Keys and tokens' page"
+      - Generate user access tokens with posting permissions
+      - Copy the Access Token and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens"
+  - key: TWITTER_ACCESS_TOKEN_SECRET
+    label: Twitter/X publishing access token secret
+    required: true
+    secret: true
+    platform_managed: false
+    description: Twitter/X publishing channel access token secret for the posting account.
+    how_to_get_steps:
+      - "Open https://developer.x.com/ in your browser"
+      - Sign in and open the Developer Portal
+      - Open the app used for this agent
+      - "Open the app's 'Keys and tokens' page"
+      - Generate user access tokens with posting permissions
+      - Copy the Access Token Secret and paste it into the field above.
+    site_url: "https://developer.x.com/"
+    provider_doc_url: "https://developer.x.com/en/docs/authentication/oauth-1-0a/obtaining-user-access-tokens"

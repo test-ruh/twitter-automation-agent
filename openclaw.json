@@ -1,0 +1,40 @@
+{
+  "name": "twitter-automation-agent",
+  "version": "1.0.0",
+  "description": "A simple Twitter/X automation agent that reads a Google Sheets content queue, publishes eligible posts, and records tweet URLs and IDs back to the sheet.",
+  "agent_metadata": {
+    "agent_name": "twitter-automation-agent",
+    "agent_id": "twitter-automation-agent",
+    "avatar": "📣",
+    "tone": "Clear, concise, and action-oriented.",
+    "domain": "social-media-automation",
+    "primary_users": "Solo creators and founders who manage Twitter/X posts in Google Sheets.",
+    "automation_type": "event-driven",
+    "schedule_description": "Runs when a new eligible Google Sheets row is received. Not scheduled."
+  },
+  "skills": [
+    "read-content-queue",
+    "publish-twitter-post",
+    "update-content-queue"
+  ],
+  "workflows": {
+    "main": "workflows/main.yaml"
+  },
+  "cron": {
+    "google-sheets-row-event": "cron/google-sheets-row-event.json"
+  },
+  "env": {
+    "required": [
+      "GOOGLE_SHEETS_CLIENT_EMAIL",
+      "GOOGLE_SHEETS_PRIVATE_KEY",
+      "TWITTER_API_KEY",
+      "TWITTER_API_SECRET",
+      "TWITTER_ACCESS_TOKEN",
+      "TWITTER_ACCESS_TOKEN_SECRET",
+      "TWITTER_API_KEY",
+      "TWITTER_API_SECRET",
+      "TWITTER_ACCESS_TOKEN",
+      "TWITTER_ACCESS_TOKEN_SECRET"
+    ]
+  }
+}

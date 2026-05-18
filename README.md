@@ -57,7 +57,6 @@ openclaw cron runs                # see run history
 | Skill | Mode | Description |
 |-------|------|-------------|
 | `data-writer` | Auto | Provision, write, and query the agent database schema via scripts/data_writer.py. Use for all PostgreSQL operations and any result-table persistence. |
-| `result-query` | User-invocable | Read stored records from the agent result tables for inspection and follow-up questions. |
 | `github-action` | User-invocable | Git branch + PR workflow for syncing agent changes to GitHub. Creates feature branches, commits changes, and opens pull requests against main. NEVER pushes to main directly. MANDATORY for every agent. |
 | `read-content-queue` | Auto | Read an eligible Twitter/X post row from Google Sheets. |
 | `publish-twitter-post` | Auto | Publish eligible queued content to Twitter/X. |
